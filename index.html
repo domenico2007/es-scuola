@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <style>
+            .rosso { color: red; }
+            .giallo { background-color: yellow; }
+        </style>
+
+    </head>
+    <body>
+    <h1>1 Crea link</h1>
+    <a id="link" href="https://store.steampowered.com" target="_blank">steam</a>
+    <button onclick="mostraLink()">mostraSito</button>
+    <span id="linkText"></span>
+
+    <h1>3 Aggiungi elemento</h1>
+    <input type="text" id="newItem" placeholder="Inserisci testo...">
+    <button onclick="aggiunta()">Aggiungi</button>
+
+    <h1>2 Lista non ordinata</h1>
+    <ul id="Lista">
+        
+    </ul>
+    <button onclick="Rosso()">Colora di Rosso</button>
+
+    
+    
+    
+    <h1>4 Evidenzia </h1>
+    <button onclick="highlightEdges()">Evidenzia</button>
+
+    <h1>5 Ordina lista</h1>
+    <button onclick="riordinamentoDellaLista()">Ordina</button>
+    
+    <h1>6 Sostituisci </h1>
+    <button onclick="rimpiazzo()">Sostituisci</button>
+
+    <script>
+        function mostraLink() {
+            let link = document.getElementById("link").getAttribute("href");
+            document.getElementById("linkText").textContent = link;
+        }
+
+        function Rosso() {
+            let lista = document.getElementById("Lista");
+            lista.classList.toggle("rosso");
+        }
+
+
+        function aggiunta() {
+            let textBox = document.getElementById("newItem");
+            let text = textBox.value.trim();
+            if (text !== "") {
+                let newItem = document.createElement("li");
+                newItem.textContent = text;
+                document.getElementById("Lista").appendChild(newItem);
+                textBox.value = "";
+            }
+        }
+
+        function highlightEdges() {
+            let items = document.querySelectorAll("#Lista li");
+            items.forEach(item => item.classList.remove("giallo"));
+            if (items.length > 0) {
+                items[0].classList.add("giallo");
+                if (items.length > 1) {
+                    items[items.length - 1].classList.add("giallo");
+                }
+            }
+        }
+
+        function riordinamentoDellaLista() {
+            let list = document.getElementById("Lista");
+            let items = list.children;
+            let arrey = new Array(items.length);
+            for (let i = 0; i < items.length; i++) {
+                arrey[i] = items[i].textContent;
+            }
+            for (let i = 0; i < arrey.length - 1; i++) {
+                for (let x = i + 1; x < arrey.length; x++) {
+                    if (arrey[i] > arrey[x]) {
+                        let temp = arrey[i];
+                        arrey[i] = arrey[x];
+                        arrey[x] = temp;
+                    }
+                }
+            }
+            list.innerHTML = "";
+            for (let i = 0; i < arrey.length; i++) {
+                let li = document.createElement("li");
+                li.textContent = arrey[i];
+                list.appendChild(li);
+            }
+        }
+
+        function rimpiazzo() {
+            let list = document.getElementById("Lista");
+            let items = list.children;
+            let arr = new Array(items.length);
+            for (let i = 0; i < items.length; i++) {
+                arr[i] = items[i].innerHTML = "<li>Che bello Javascript!</li>";
+            }
+        }
+
+    </script>
+
+    </body>
+</html>
