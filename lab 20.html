@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bottoni con Doppio Click</title>
+
+    <style>
+      .cambia-Colore {
+         background-color: yellow;
+         color: black;
+      }
+    </style>
+
+    <script>
+        // Funzione da chiamare al doppio clic del bottone
+        function mostraMessaggio() {
+            alert('fatto');
+        }
+
+        function passa() {
+            const div = document.querySelector(".cambia-Colore");
+            div.style.backgroundColor = "lightblue"; // Cambia il colore di sfondo
+            div.style.color = "green"; // Cambia il colore testo
+        }
+
+        function togli() {
+            const div = document.querySelector(".cambia-Colore");
+            div.style.backgroundColor = "yellow"; // Cambia il colore di sfondo
+            div.style.color = "black"; // Cambia il colore testo
+        }
+
+        function blu() {
+            const parolaSpeciale = "blu";
+            const textbox = document.getElementById("textbox");
+            if (textbox.value.toLowerCase() === parolaSpeciale) {
+                document.body.style.backgroundColor = "blue"; // Cambia lo sfondo a blu
+            } else {
+                document.body.style.backgroundColor = ""; // Ripristina il colore dello sfondo
+            }
+        }
+
+        function modifica_tendina() {
+            const titolo = document.getElementById("titolo");
+            const colorSelect = document.getElementById("colorSelect");    
+            titolo.style.color = colorSelect.value; // Cambia il colore del titolo in base alla selezione
+        }
+
+        // Aggiungiamo l'evento dopo il caricamento del DOM
+        window.onload = function() {
+            // Seleziona il bottone
+            const bottone = document.querySelector("button");
+            // Aggiungi il listener per il doppio clic
+            bottone.addEventListener("dblclick", mostraMessaggio);
+
+            // Seleziona il div per il cambio di colore
+            const div = document.querySelector(".cambia-Colore");
+            // Aggiungi il listener per il passa
+            div.addEventListener("mouseenter", passa);
+            // Aggiungi il listener per il passa
+            div.addEventListener("mouseleave", togli);
+
+            // Riferimento alla textbox
+            const textbox = document.getElementById("textbox");
+            // Aggiungi un evento per monitorare ogni modifica nella textbox
+            textbox.addEventListener("input", blu);
+
+            // Seleziona il select per cambiare il colore del titolo
+            const colorSelect = document.getElementById("colorSelect");
+            // Aggiungi un evento al cambio di selezione della select
+            colorSelect.addEventListener("change", modifica_tendina);
+        };
+    </script>
+</head>
+<body>
+    <button>Doppio clicca su di me</button>
+    <div class="cambia-Colore"> Ciao come stai? </div>
+
+    <h1 id="titolo">Scrivi nella textbox per cambiare lo sfondo</h1>
+    <input type="text" id="textbox" placeholder="Scrivi qualcosa...">
+
+    <h2>Scegli un colore per il titolo:</h2>
+    <select id="colorSelect">
+        <option value="red">Rosso</option>
+        <option value="green">Verde</option>
+        <option value="blue">Blu</option>
+        <option value="orange">Arancione</option>
+        <option value="purple">Viola</option>
+    </select> 
+</body>
+</html>
